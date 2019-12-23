@@ -27,4 +27,14 @@ I wanted to use a simpler script(since the DUC from No-IP requires `make install
     sudo su
     crontab -e
     */10 * * * * /usr/sbin/ddupdate.sh >/dev/null 2>&1
-
+    /
+    ├── /
+    ├── Gemfile.lock
+    ├── usr
+    │   └── sbin
+    │       └── no-ip.sh
+    └── var
+        └── log
+            └── no-ip
+                └── no-ip.log  
+                └── oldip.log  

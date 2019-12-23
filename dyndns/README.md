@@ -8,7 +8,7 @@ I wanted to use a simpler script(since the DUC from No-IP requires `make install
 
 1: Download the file and edit the parameters
     
-    wget -qO ddupdate.sh https://raw.githubusercontent.com/dmz-madrid/rpi/master/dyndns/ddupdate.sh
+    wget -qO ddupdate.sh https://raw.githubusercontent.com/dmz-madrid/rpi/master/dyndns/no-ip-updater.sh
     nano ddupdate.sh
     
 2: Copy the file to `/usr/bin`
@@ -27,6 +27,9 @@ I wanted to use a simpler script(since the DUC from No-IP requires `make install
     sudo su
     crontab -e
     */10 * * * * /usr/sbin/ddupdate.sh >/dev/null 2>&1
+    
+5: The final folder tree should look like this
+
     /
     ├── /
     ├── Gemfile.lock

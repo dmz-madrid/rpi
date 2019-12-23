@@ -30,9 +30,7 @@ I wanted to use a simpler script(since the DUC from No-IP requires `make install
     
 5: The final folder tree should look like this
 
-    /
-    ├── /
-    ├── Gemfile.lock
+    root
     ├── usr
     │   └── sbin
     │       └── no-ip.sh

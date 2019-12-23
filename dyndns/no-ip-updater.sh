@@ -1,28 +1,35 @@
 #!/bin/bash
 
+##
+#		VARIABLES
+##
 
-# this script uses wget to update no-ip dynamic dns
+# STATIC vars: you must CHANGE THIS
+USERNAME="mymail@gmail.com" 									# here we put the email associated with the no-ip account
+PASSWORD="foobar"										# here we put the password associated with the no-ip account
+HOSTNAME="domain.ddns.net"									# the hostname that we want to update
+LOCATION="/var/log/no-ip" 									# the logs location /var/log/no-ip.log & /var/log/no-ip/oldip.txt
+USERAGENT="--user-agent=no-ip shell script/myO.S. 1.0 maintainer-mymail@gmail.com"
 
-USERNAME="youruser"
-PASSWORD="yourpass"
-HOSTNAME="example.ddns.net"
-LOCATION="/var/log/no-ip" # logs location /var/log/no-ip.log & /var/log/no-ip/oldip.txt
-USERAGENT="no-ip shell script/O.S. 1.0 maintainer-username@mail.com"
-BASE64AUTH=$(echo '"$USERNAME:$PASSWORD"' | base64)
-AUTHORIZATION="Authorization: $BASE64AUTH"
-DATE=$(date +%Y-%m-%d\ %H:%M:%S)
-echo $DATE
+# DYNAMIC vars: don't alter this
+BASE64AUTH=$(echo $USERNAME:$PASSWORD | base64)
+AUTHORIZATION="--header=Authorization: Basic $BASE64AUTH" 					# this is a header parameter for wget
+DATE=$(date +%Y-%m-%d\ %H:%M:%S) 								# date and time
+WGETPASS="--password=$PASSWORD"									# password parameter for wget
+WGETUSER="--user=$USERNAME"									# user parameter for wget
 IP=`wget -q -O - http://www.ddnss.de/meineip.php| grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
 
+##
+#		MAIN SCRIPT
+##
 
 # checking if log files created and credentials entered...
-
-if [ -z "$USERNAME" ]; then # -z string is null, that is, has zero length
+if [ -z "$USERNAME" ]; then # -z string - Checks if it's null, that is, has zero length
 	echo "No user was set"
 	exit 10
 fi
 
-if [ ! -f "$LOCATION/no-ip.log" ] || [ ! -f "$LOCATION/oldip.log" ]; then #  -f filename - Check for regular file existence not a directory
+if [ ! -f "$LOCATION/no-ip.log" ] || [ ! -f "$LOCATION/oldip.log" ]; then # -f filename - Checks for regular file existence 
 	echo "Log file and/or old ip file not found. Please create $LOCATION/no-ip.log and $LOCATION/oldip.log"
 	exit	10
 else
@@ -30,20 +37,31 @@ else
 	echo "Current IP=$OLDIP"
 fi
 
-# updating ip...
-# using --output-document=- (FILE=-) or -O, - we reroute the output to stdout
-# then, we append stdout to a file
+
+
 if [ "$IP" == "$OLDIP" ]; then
-	echo "$DATE - IP is the same - NO UPDATE"
 	echo "$DATE - IP is the same - NO UPDATE" >> $LOCATION/no-ip.log
 else
-	echo "$DATE -  New-IP: $IP / Old-IP: $OLDIP - UPDATE!"
 	echo "$DATE -  New-IP: $IP / Old-IP: $OLDIP - UPDATE!" >> $LOCATION/no-ip.log
 	echo $IP > $LOCATION/oldip.log
-	wget -q -O - "--header=\"$AUTHORIZATION\"" "--user-agent=\"$USERAGENT\"" 'https://'$USERNAME':'$PASSWORD'@dynupdate.no-ip.com/nic/update?hostname='$HOSTNAME'&myip='$IP''>> $LOCATION/no-ip.log
+	# we redirect the output of wget to a file, we use the '-' to use stdout instead of a file, and then concatenate stdout
+	# at the end of the log file...
+	# since wget doesn't let you use an email '@ 'inside of an url, we use the --user and --password options:
+	# https://username'@'gmail.com:userpass@dynupdate.no-ip.com/nic.........&myip=1.1.1.1 -> error
+	# --user=username'@'gmail.com --password=userpass dynupdate.no-ip.com/nic.........&myip=1.1.1.1 -> OK
+	echo "$WGETUSER"
+	echo "$WGETPASS"
+	echo "$USERAGENT"
+	echo "$AUTHORIZATION"
+	sudo wget -q -O - "$WGETUSER" "$WGETPASS" "$USERAGENT" "$AUTHORIZATION" 'http://dynupdate.no-ip.com/nic/update?hostname='${HOSTNAME}'&myip='$IP''>> $LOCATION/no-ip.log
 	echo " " >> $LOCATION/no-ip.log
 	echo "Update ..."
-	echo '-q' '-O' '-' "--header=\"$AUTHORIZATION\"" "--user-agent=\"$USERAGENT\"" 'https://****' >> $LOCATION/no-ip.log
 	find $LOCATION/no-ip.log -type f -size +1M -exec rm -f {} \;
 fi
+
+##
+#		END OF SCRIPT
+##
+
 exit 0
+

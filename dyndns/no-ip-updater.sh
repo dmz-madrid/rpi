@@ -18,7 +18,7 @@ IP=`wget -q -O - http://www.ddnss.de/meineip.php| grep -o '[0-9]\{1,3\}\.[0-9]\{
 # checking if log files created and credentials entered...
 
 if [ -z "$USERNAME" ]; then # -z string is null, that is, has zero length
-	echo "No user was set. Use -u=username"
+	echo "No user was set"
 	exit 10
 fi
 

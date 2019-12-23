@@ -8,12 +8,12 @@ I wanted to use a simpler script(since the DUC from No-IP requires `make install
 
 1: Download the file and edit the parameters
     
-    wget -qO ddupdate.sh https://raw.githubusercontent.com/dmz-madrid/rpi/master/dyndns/no-ip-updater.sh
-    nano ddupdate.sh
+    wget -qO no-ip-updater.sh https://raw.githubusercontent.com/dmz-madrid/rpi/master/dyndns/no-ip-updater.sh
+    nano no-ip-updater.sh
     
 2: Copy the file to `/usr/bin`
 
-    sudo cp ddupdate.sh /usr/sbin/ddupdate.sh
+    sudo cp no-ip-updater.sh /usr/sbin/no-ip-updater.sh
     
 3: Create log files and give read/write permissions to all users
 
@@ -26,14 +26,14 @@ I wanted to use a simpler script(since the DUC from No-IP requires `make install
     
     sudo su
     crontab -e
-    */10 * * * * /usr/sbin/ddupdate.sh >/dev/null 2>&1
+    */10 * * * * /usr/sbin/no-ip-updater.sh >/dev/null 2>&1
     
 5: The final folder tree should look like this
 
     root
     ├── usr
     │   └── sbin
-    │       └── no-ip.sh
+    │       └── no-ip-updater.sh
     └── var
         └── log
             └── no-ip

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # copy this to /usr/sbin:
-# sudo cp ddupdate.sh /usr/sbin/ddupdate.sh
+# sudo cp ddupdate.sh /usr/sbin/no-ip-updater.sh
 # this script uses wget to update no-ip dynamic dns
 USERNAME=""
 PASSWORD=""

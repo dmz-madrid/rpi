@@ -4,7 +4,9 @@
 
 This shell script replaces the Dynamic Update Client (DUC) for [No-IP](https://www.noip.com/support/knowledgebase/installing-the-linux-dynamic-update-client/ "No-IP: How to install DUC on Linux ")\
 Based on ddnss.de [script](https://ddnss.de/info.php "CRON & Bash Script") and this repo from [theonemule](https://github.com/theonemule/no-ip)\
-I wanted to use a simpler script and just use a crontab to run it from time to time. Since the DUC from No-IP requires `make install` and edit config files, this seems a better option for me.
+I wanted to use a simpler script and just use a crontab to run it from time to time.\
+Since the DUC from No-IP requires `make install` and edit config files, this seems a better option for me.\
+There's a python script(for windows or linux) and a shell script(for linux).
 
 # usage (shell script)
 
@@ -42,4 +44,6 @@ I wanted to use a simpler script and just use a crontab to run it from time to t
                 └── no-ip.log  
                 └── oldip.log  
 # usage (python script)
+
+Exactly the same as above. In windows it can be scheduled with [pycron](https://github.com/kipe/pycron "Simple cron-like parser for Python") or [schtasks](https://en.wikipedia.org/wiki/Windows_Task_Scheduler "Windows Task Scheduler")
 

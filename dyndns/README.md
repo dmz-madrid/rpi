@@ -41,3 +41,5 @@ I wanted to use a simpler script and just use a crontab to run it from time to t
             └── no-ip
                 └── no-ip.log  
                 └── oldip.log  
+# usage (python script)
+

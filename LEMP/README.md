@@ -13,16 +13,16 @@ some dependencies added
 #### requeriments
     sudo apt install -y php php-mysql
     sudo apt install -y php-common php-bcmath php-fpm php-xml php-zip php-curl php-mbstring php-gd php-tidy
-    this also installs libtidy5deb1 php7.3-tidy
+    # this also installs libtidy5deb1 php7.3-tidy
     sudo apt install -y php-mbstring php-mysql php-json php-curl php-bcmath php-zip
-    php-pdo not necessary, or it will switch to manual
+    # php-pdo not necessary, or it will switch to manual
 
 #### composer
-- `sudo apt install -y curl php-cli php-mbstring git unzip`
-- `cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php`
+    sudo apt install -y curl php-cli php-mbstring git unzip
+    cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
 
 To install composer as a system-wide command named `composer`, under `/usr/local/bin`:
-- `sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer`\
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 Output:
 ```
 All settings correct for using Composer

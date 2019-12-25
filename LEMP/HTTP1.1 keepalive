@@ -1,4 +1,6 @@
 
+# This is a proxy for a dockerized web app
+
 server {
     server_name myserver.ddns.net;
 

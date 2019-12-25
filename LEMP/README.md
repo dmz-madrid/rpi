@@ -38,8 +38,7 @@ Output:
 
     sudo apt install -y mariadb-server
     sudo mysql_secure_installation
-
-
+    
 5. Apache Virtual Hosts
 By default, Apache(and nginx) serves its content from a directory located at `/var/www/html`, using the configuration contained in `/etc/apache2/sites-available/000-default.conf`\
 Virtual hosts enable us to keep multiple websites hosted on a single Apache server.

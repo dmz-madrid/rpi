@@ -3,7 +3,7 @@ https://veerasundar.com/blog/2014/09/setting-expires-header-for-assets-nginx/
 https://www.digitalocean.com/community/questions/add-cache-control-header-expire-header-in-nginx
 s
 
-
+![Without](/without-expires-header.png)
 Added this part with expires-header:
 ```
 # This is a proxy for a dockerized web app

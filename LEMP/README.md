@@ -1,6 +1,7 @@
 #### enable ssh
-- `sudo apt install openssh-server`
-- `sudo service ssh start`
+
+  sudo apt install openssh-server
+  sudo service ssh start
 
 ### LEMP stack in raspbian 10
 

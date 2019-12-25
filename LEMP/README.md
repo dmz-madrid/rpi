@@ -7,17 +7,17 @@
 
 base install: https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10 \
 some dependencies added
-#### nginx
+1. nginx
     sudo apt update && sudo apt install nginx
     sudo apt install software-properties-common
-#### requeriments
+2. requeriments
     sudo apt install -y php php-mysql
     sudo apt install -y php-common php-bcmath php-fpm php-xml php-zip php-curl php-mbstring php-gd php-tidy
     # this also installs libtidy5deb1 php7.3-tidy
     sudo apt install -y php-mbstring php-mysql php-json php-curl php-bcmath php-zip
     # php-pdo not necessary, or it will switch to manual
 
-#### composer
+3. composer
     sudo apt install -y curl php-cli php-mbstring git unzip
     cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
 
@@ -34,13 +34,13 @@ Output:
     $ composer -V
     Composer version 1.9.1 2019-11-01 17:20:17
 
-#### mariadb
+4. mariadb
 
     sudo apt install -y mariadb-server
     sudo mysql_secure_installation
 
 
-#### Apache Virtual Hosts
+5. Apache Virtual Hosts
 By default, Apache(and nginx) serves its content from a directory located at `/var/www/html`, using the configuration contained in `/etc/apache2/sites-available/000-default.conf`\
 Virtual hosts enable us to keep multiple websites hosted on a single Apache server.
 
@@ -54,7 +54,7 @@ Alternatively you can edit hosts file `/etc/hosts/`
 ```
 Then access the newly created virtual host with `http://server1.com`
 
-#### Adminer
+6. Adminer
 From http://www.ubuntuboss.com/how-to-install-adminer-on-ubuntu-18-04/ 
 - `sudo mkdir /usr/share/adminer`
 - `sudo wget "http://www.adminer.org/latest.php" -O /usr/share/adminer/latest.php`
@@ -66,17 +66,21 @@ The configuration files in the conf-available directory are not active unless en
 Enable the configuration in `/etc/apache2/conf-available/adminer.conf` and reload apache:
 - `sudo a2enconf adminer.conf && sudo systemctl reload apache2`
 Now we can access `http://127.0.0.1/adminer.php`
-#### example: adding wallabag to apache server
-- `cd cd /var/www/html`
-- don't use sudo with git clone or you won't have permission to make install
-- `git clone https://github.com/wallabag/wallabag.git && cd wallabag`
-- `sudo git checkout 2.3.8` or whatever version
-- `sudo mysql -u root -p`
-  - `create user wallabaguser@localhost;`
-  - `set password for wallabaguser@localhost= password("your-password");`
-  - `grant all privileges on wallabag.* to wallabaguser@localhost identified by 'your-password';`
-  - `flush privileges;`
-  - `exit;`
+
+7. example: adding wallabag to apache server
+
+    cd cd /var/www/html
+    # don't use sudo with git clone or you won't have permission to make install
+    git clone https://github.com/wallabag/wallabag.git && cd wallabag
+    sudo git checkout 2.3.8 # or whatever version
+    sudo mysql -u root -p
+
+    create user wallabaguser@localhost;
+    set password for wallabaguser@localhost= password("your-password");
+    grant all privileges on wallabag.* to wallabaguser@localhost identified by 'your-password';
+    flush privileges;
+    exit;
+    
 Each time you make some changes in `app/config/parameters.yml`, empty the wallabag cache to take the modification into account:
 - `php bin/console wallabag:install --env=prod`
 - `sudo -u www-data php bin/console cache:clear -e prod`

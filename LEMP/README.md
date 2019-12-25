@@ -22,20 +22,22 @@ some dependencies added
     cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
 
 To install composer as a system-wide command named `composer`, under `/usr/local/bin`:
-    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-Output:
-```
-All settings correct for using Composer
-Downloading...
-Composer (version 1.9.1) successfully installed to: /usr/local/bin/composer
-Use it: php /usr/local/bin/composer
-$ composer -V
-Composer version 1.9.1 2019-11-01 17:20:17
 
-```
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    
+Output:
+
+    All settings correct for using Composer
+    Downloading...
+    Composer (version 1.9.1) successfully installed to: /usr/local/bin/composer
+    Use it: php /usr/local/bin/composer
+    $ composer -V
+    Composer version 1.9.1 2019-11-01 17:20:17
+
 #### mariadb
-- `sudo apt install -y mariadb-server`
-- `sudo mysql_secure_installation`
+
+    sudo apt install -y mariadb-server
+    sudo mysql_secure_installation
 
 
 #### Apache Virtual Hosts

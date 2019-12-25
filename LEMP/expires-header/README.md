@@ -3,7 +3,12 @@ https://veerasundar.com/blog/2014/09/setting-expires-header-for-assets-nginx/
 https://www.digitalocean.com/community/questions/add-cache-control-header-expire-header-in-nginx
 s
 
+
+## Without expires header this was the page score
+
 ![Without](https://github.com/dmz-madrid/rpi/blob/master/LEMP/expires-header/without-expires-header.jpg)
+
+
 Added this part with expires-header:
 ```
 # This is a proxy for a dockerized web app
@@ -55,3 +60,8 @@ server {
     return 404; # managed by Certbot
 }
 ```
+## After adding expires header the score was better
+
+![With](https://github.com/dmz-madrid/rpi/blob/master/LEMP/expires-header/with-expires-header.jpg)
+
+

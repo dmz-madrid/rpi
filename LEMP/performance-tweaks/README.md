@@ -71,9 +71,9 @@ server {
 
 ### Now we use everything
 
-- HTTP1.1 in the local communication between nginx proxy and dockerized webapp (keepalive TCP)
-- HTTP2 in the communication between nginx proxy and clients (higher compression, binary parameters -> efficiency boost)
-- Expires-header in the communication between nginx proxy and clients (use of cache)
+- HTTP1.1 in the local communication between nginx proxy and dockerized webapp **(keepalive TCP)**
+- HTTP2 in the communication between nginx proxy and clients **(higher compression, binary parameters -> efficiency boost)**
+- Expires-header in the communication between nginx proxy and clients **(use of cache)**
 
 The result is this, much higher score:
 

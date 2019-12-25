@@ -8,9 +8,12 @@
 base install: https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10 \
 some dependencies added
 1. nginx
+
     sudo apt update && sudo apt install nginx
     sudo apt install software-properties-common
+
 2. requeriments
+
     sudo apt install -y php php-mysql
     sudo apt install -y php-common php-bcmath php-fpm php-xml php-zip php-curl php-mbstring php-gd php-tidy
     # this also installs libtidy5deb1 php7.3-tidy
@@ -18,6 +21,7 @@ some dependencies added
     # php-pdo not necessary, or it will switch to manual
 
 3. composer
+
     sudo apt install -y curl php-cli php-mbstring git unzip
     cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
 

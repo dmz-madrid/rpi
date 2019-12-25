@@ -1,5 +1,18 @@
 ## USING HTTP1.1 in the communication nginx proxy-docker webapp
 
+We add the #### marked lines to the proxy.
+
+```
+location / {
+        proxy_http_version 1.1; # can't proxy HTTP2 ####
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://127.0.0.1:port;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Connection ""; # keepalive HTTP1.1 ####
+    }
+```
 
 ## USING Expires-header
 Expires header for static assets in Nginx can boost the performance. We can use https://tools.pingdom.com/ to test the server's performance.
@@ -14,7 +27,7 @@ https://www.digitalocean.com/community/questions/add-cache-control-header-expire
 ![Without](https://github.com/dmz-madrid/rpi/blob/master/LEMP/expires-header/without-expires-header.jpg)
 
 
-Added this part to `/etc/nginx/sites-available/webapp.conf` with expires-header:
+Added this part to `/etc/nginx/sites-available/webapp.conf` with expires-header. Should look like this
 ```
 # This is a proxy for a dockerized web app
 

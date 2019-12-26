@@ -90,7 +90,7 @@ server {
 
 The result is this, much higher score:
 
-![Everything](https://github.com/dmz-madrid/rpi/blob/master/LEMP/performance-tweaks/expires-hdr-http2-edge-http11proxy.jpg)
+### gzip compression
 
 
 

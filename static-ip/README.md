@@ -1,9 +1,9 @@
 
-1:
+1. Check service dhcpd
 
     sudo systemctl enable dhcpcd
 
-2: Folder tree 
+2. Folder tree 
 
     root
     ├── etc

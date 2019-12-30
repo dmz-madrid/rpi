@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# URL: https://github.com/dmz-madrid/rpi/edit/master/dyndns/no-ip-updater.sh
 ##
 #		VARIABLES
 ##
@@ -8,11 +8,13 @@
 USERNAME="mymail@gmail.com" 									# here we put the email associated with the no-ip account
 PASSWORD="foobar"										# here we put the password associated with the no-ip account
 HOSTNAME="domain.ddns.net"									# the hostname that we want to update
+HOSTNAME2="" # leave empty if you only have one hostname
+HOSTNAME3="" 	
 LOCATION="/var/log/no-ip" 									# the logs location /var/log/no-ip.log & /var/log/no-ip/oldip.txt
 USERAGENT="--user-agent=no-ip shell script/myO.S. 1.0 maintainer-mymail@gmail.com"
 
 # DYNAMIC vars: don't alter this
-BASE64AUTH=$(echo $USERNAME:$PASSWORD | base64)
+BASE64AUTH=$(echo $USERNAME:$PASSWORD | base64)							# same for all hostnames
 AUTHORIZATION="--header=Authorization: Basic $BASE64AUTH" 					# this is a header parameter for wget
 DATE=$(date +%Y-%m-%d\ %H:%M:%S) 								# date and time
 WGETPASS="--password=$PASSWORD"									# password parameter for wget
@@ -54,6 +56,14 @@ else
 	echo "$USERAGENT"
 	echo "$AUTHORIZATION"
 	sudo wget -q -O - "$WGETUSER" "$WGETPASS" "$USERAGENT" "$AUTHORIZATION" 'http://dynupdate.no-ip.com/nic/update?hostname='${HOSTNAME}'&myip='$IP''>> $LOCATION/no-ip.log
+	if [ ! -z "$HOSTNAME2" ]; then
+		sudo wget -q -O - "$WGETUSER" "$WGETPASS" "$USERAGENT" "$AUTHORIZATION" 'http://dynupdate.no-ip.com/nic/update?hostname='${HOSTNAME2}'&myip='$IP''>> $LOCATION/no-ip.log
+		echo "hostname 1 found"
+	fi
+	if [ ! -z "$HOSTNAME2" ]; then
+		sudo wget -q -O - "$WGETUSER" "$WGETPASS" "$USERAGENT" "$AUTHORIZATION" 'http://dynupdate.no-ip.com/nic/update?hostname='${HOSTNAME3}'&myip='$IP''>> $LOCATION/no-ip.log
+		echo "hostname 2 found"
+	fi
 	echo " " >> $LOCATION/no-ip.log
 	echo "Update ..."
 	find $LOCATION/no-ip.log -type f -size +1M -exec rm -f {} \;
